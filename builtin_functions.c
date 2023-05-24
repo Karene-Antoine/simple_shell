@@ -55,7 +55,6 @@ void env_command(__attribute__((unused))char *line)
 void exit_command(char *line)
 {
 	free(line);
-	print_the_string("\n", 1);
 	exit(1);
 }
 
