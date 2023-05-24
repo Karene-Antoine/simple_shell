@@ -46,7 +46,7 @@ void single_free(int, ...);
 void (*check_built_ins(char *))(char *);
 int built_in(char **, char *);
 void env_command(char *);
-void exit_command(char *);
+int exit_command(char *);
 void cd_command(char *);
 
 /* Helper functions*/
