@@ -22,5 +22,5 @@ int main(__attribute__((unused)) int ac, char **av)
 
 	} while (1);
 
-	return (0);
+	return EXIT_SUCCESS;
 }

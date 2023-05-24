@@ -52,10 +52,16 @@ void env_command(__attribute__((unused))char *line)
  * exit_command - Terminate the shell process.
  * @line: Input from the user.
  */
-void exit_command(char *line)
+int exit_command(char *line)
 {
+	if (line != NULL)
+	{
+		free(line);
+		return EXIT_SUCCESS;
+	}
+
 	free(line);
-	exit EXIT_SUCCESS;
+	return EXIT_FAILURE;
 }
 
 /**
@@ -69,7 +75,7 @@ void (*check_built_ins(char *str))(char *str)
 
 	builtin_t builtin_list[] = {
 	{"cd", cd_command},
-		{"env", env_command},
+	{"env", env_command},
 	{"exit", exit_command},
 
 		{NULL, NULL}
