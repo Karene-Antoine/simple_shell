@@ -60,7 +60,6 @@ void create_the_child(char **param_array, char *line, int count, char **av)
 		command = path_finder(param_array[0]);
 		if (command == NULL)
 		{
-			/*Looking for file in current directory*/
 			check = stat(temporary_command, &buffer);
 			if (check == -1)
 			{
@@ -72,7 +71,6 @@ void create_the_child(char **param_array, char *line, int count, char **av)
 				free(param_array);
 				exit(100);
 			}
-			/*file exist in cwd or has full path*/
 			command = temporary_command;
 		}
 		param_array[0] = command;
@@ -81,12 +79,9 @@ void create_the_child(char **param_array, char *line, int count, char **av)
 			if (execve(param_array[0], param_array, environ) == -1)
 				execute_error(av[0], count, temporary_command);
 		}
-	}
-	else
+	} else
 	{
-	/* Parent process */
 		do {
-		/* Wait for child to complete */
 			waitpid(id, &status, WUNTRACED);
 		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
 					}
