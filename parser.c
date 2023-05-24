@@ -83,7 +83,13 @@ void create_the_child(char **param_array, char *line, int count, char **av)
 		}
 	}
 	else
-		wait(&status);
+	{
+	/* Parent process */
+		do {
+		/* Wait for child to complete */
+			waitpid(id, &status, WUNTRACED);
+		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
+					}
 }
 
 /**
