@@ -6,7 +6,7 @@
  * @command_counter: Stores number of commands entered into the shell.
  * @av: Program executing the shell.
  */
-void parsing_the_line(char *line, size_t size, int command_counter, char **av)
+int parsing_the_line(char *line, size_t size, int command_counter, char **av)
 {
 	const char *separator = "\n\t ";
 	ssize_t read_len;
@@ -23,7 +23,7 @@ void parsing_the_line(char *line, size_t size, int command_counter, char **av)
 		if (parameter_list[0] == NULL)
 		{
 			single_free(2, parameter_list, line);
-			return;
+			return EXIT_FAILURE;
 		}
 		index_i = built_in(parameter_list, line);
 		if (index_i == -1)
@@ -82,8 +82,14 @@ void create_the_child(char **param_array, char *line, int count, char **av)
 				execute_error(av[0], count, temporary_command);
 		}
 	}
-	else
-		wait(&status);
+	else	
+	{
+		/* Parent process */
+		do {
+			/* Wait for child to complete */
+			waitpid(id, &status, WUNTRACED);
+		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
+	}
 }
 
 /**
