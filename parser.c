@@ -13,9 +13,16 @@ void parsing_the_line(char *line, size_t size, int command_counter, char **av)
 	char **parameter_list;
 	int index_i;
 	int token_total;
+	
+	if (av[0] != NULL){
+		write(STDOUT_FILENO, av[0], str_len(av[0]));
+	}
+	else
+	{
+		write(STDOUT_FILENO, PROMPT, str_len(PROMPT));
+	}
 
 	token_total = 0;
-	write(STDOUT_FILENO, PROMPT, str_len(PROMPT));
 	read_len = getline(&line, &size, stdin);
 	if (read_len != -1)
 	{
