@@ -6,7 +6,7 @@
  * @command_counter: Stores number of commands entered into the shell.
  * @av: Program executing the shell.
  */
-int parsing_the_line(char *line, size_t size, int command_counter, char **av)
+void parsing_the_line(char *line, size_t size, int command_counter, char **av)
 {
 	const char *separator = "\n\t ";
 	ssize_t read_len;
@@ -23,7 +23,7 @@ int parsing_the_line(char *line, size_t size, int command_counter, char **av)
 		if (parameter_list[0] == NULL)
 		{
 			single_free(2, parameter_list, line);
-			return EXIT_FAILURE;
+			exit(EXIT_FAILURE);
 		}
 		index_i = built_in(parameter_list, line);
 		if (index_i == -1)
